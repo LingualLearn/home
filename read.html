@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Welcome to the Real Site!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 25%, #F8B500 50%, #6C5CE7 75%, #00D2D3 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Shooting Stars Container */
+        .shooting-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Tyler The Creator inspired shooting stars */
+        .shooting-star {
+            position: absolute;
+            border-radius: 50%;
+            animation: shoot linear infinite;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, currentColor);
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+
+        .shooting-star.star-1 {
+            width: 8px;
+            height: 8px;
+            background: #FF6B9D;
+            color: #FF6B9D;
+            box-shadow: 0 0 20px #FF6B9D, 0 0 40px #FF6B9D;
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+
+        .shooting-star.star-2 {
+            width: 6px;
+            height: 6px;
+            background: #00D2D3;
+            color: #00D2D3;
+            box-shadow: 0 0 20px #00D2D3, 0 0 40px #00D2D3;
+            animation-duration: 2.5s;
+            animation-delay: 1s;
+        }
+
+        .shooting-star.star-3 {
+            width: 10px;
+            height: 10px;
+            background: #F8B500;
+            color: #F8B500;
+            box-shadow: 0 0 20px #F8B500, 0 0 40px #F8B500;
+            animation-duration: 4s;
+            animation-delay: 2s;
+        }
+
+        .shooting-star.star-4 {
+            width: 7px;
+            height: 7px;
+            background: #6C5CE7;
+            color: #6C5CE7;
+            box-shadow: 0 0 20px #6C5CE7, 0 0 40px #6C5CE7;
+            animation-duration: 3.5s;
+            animation-delay: 0.5s;
+        }
+
+        .shooting-star.star-5 {
+            width: 9px;
+            height: 9px;
+            background: #00FF87;
+            color: #00FF87;
+            box-shadow: 0 0 20px #00FF87, 0 0 40px #00FF87;
+            animation-duration: 2.8s;
+            animation-delay: 1.5s;
+        }
+
+        .shooting-star.star-6 {
+            width: 5px;
+            height: 5px;
+            background: #FF3838;
+            color: #FF3838;
+            box-shadow: 0 0 20px #FF3838, 0 0 40px #FF3838;
+            animation-duration: 3.2s;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(-100px) translateY(-100px) rotate(45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(calc(100vh + 100px)) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating geometric shapes */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            animation: float linear infinite;
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid #FF6B9D;
+            filter: drop-shadow(0 0 10px #FF6B9D);
+            animation-duration: 15s;
+            animation-delay: 0s;
+        }
+
+        .shape-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00D2D3;
+            box-shadow: 0 0 15px #00D2D3;
+            animation-duration: 12s;
+            animation-delay: 3s;
+        }
+
+        .shape-square {
+            width: 18px;
+            height: 18px;
+            background: #F8B500;
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px #F8B500;
+            animation-duration: 18s;
+            animation-delay: 6s;
+        }
+
+        .shape-hexagon {
+            width: 20px;
+            height: 17.32px;
+            background: #6C5CE7;
+            position: relative;
+            box-shadow: 0 0 15px #6C5CE7;
+            animation-duration: 14s;
+            animation-delay: 9s;
+        }
+
+        .shape-hexagon:before,
+        .shape-hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+
+        .shape-hexagon:before {
+            bottom: 100%;
+            border-bottom: 5.77px solid #6C5CE7;
+        }
+
+        .shape-hexagon:after {
+            top: 100%;
+            border-top: 5.77px solid #6C5CE7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Pulsing orbs */
+        .pulsing-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .pulsing-orb {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255,107,157,0.3) 0%, transparent 70%);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(0,210,211,0.3) 0%, transparent 70%);
+            top: 60%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .orb-3 {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, rgba(248,181,0,0.3) 0%, transparent 70%);
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.1;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3);
+            background: linear-gradient(45deg, #FF6B9D, #00D2D3, #F8B500);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGradient 3s ease infinite;
+        }
+
+        @keyframes textGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .secret-message {
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.4),
+                0 0 30px rgba(255,107,157,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            border-color: rgba(255,107,157,0.6);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .game-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .game-card:hover h3 {
+            color: #FFF;
+            text-shadow: 0 0 15px rgba(255,215,0,0.8), 2px 2px 4px rgba(0,0,0,0.5);
+            transform: scale(1.05);
+        }
+
+        .game-card p {
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .play-btn {
+            background: linear-gradient(45deg, #FF6B9D, #00D2D3, #F8B500);
+            background-size: 200% 200%;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: buttonGradient 3s ease infinite;
+        }
+
+        @keyframes buttonGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+            animation-duration: 1s;
+        }
+
+        /* Responsive design for different screen sizes */
+        @media (max-width: 1400px) {
+            .games-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .game-card {
+                padding: 15px;
+                min-height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mini-game {
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            animation: fadeInUp 1s ease-out 0.9s both;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        
+        .number-game {
+            text-align: center;
+        }
+        
+        .number-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.5), 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .game-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.4);
+            padding: 10px 20px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .game-btn:hover {
+            background: rgba(255,107,157,0.4);
+            border-color: rgba(255,107,157,0.6);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,107,157,0.3);
+        }
+        
+        .score {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .easter-egg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Shooting Stars Background -->
+    <div class="shooting-stars">
+        <div class="shooting-star star-1"></div>
+        <div class="shooting-star star-2"></div>
+        <div class="shooting-star star-3"></div>
+        <div class="shooting-star star-4"></div>
+        <div class="shooting-star star-5"></div>
+        <div class="shooting-star star-6"></div>
+    </div>
+
+    <!-- Floating Geometric Shapes -->
+    <div class="floating-shapes">
+        <div class="floating-shape shape-triangle"></div>
+        <div class="floating-shape shape-circle"></div>
+        <div class="floating-shape shape-square"></div>
+        <div class="floating-shape shape-hexagon"></div>
+    </div>
+
+    <!-- Pulsing Orbs -->
+    <div class="pulsing-orbs">
+        <div class="pulsing-orb orb-1"></div>
+        <div class="pulsing-orb orb-2"></div>
+        <div class="pulsing-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎮 GameHub 🎮</h1>
+            <p>Welcome to the REAL website! You found the secret!</p>
+        </div>
+        
+        <div class="secret-message">
+            <h2>🎉 Congratulations! 🎉</h2>
+            <p>You discovered the hidden gaming portal! The "language learning" site was just a clever disguise. 
+            You're now in the exclusive GameHub where the real fun begins. Use Ctrl+Alt+U anytime to return here from the disguise site!</p>
+        </div>
+        
+        <div class="games-grid">
+            <div class="game-card">
+                <h3>🎯 Number Guessing</h3>
+                <p>Test your luck and intuition! Guess the secret number between 1 and 100.</p>
+                <button class="play-btn" onclick="startNumberGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🧩 Memory Challenge</h3>
+                <p>Train your brain with this classic memory game. Remember the sequence!</p>
+                <button class="play-btn" onclick="startMemoryGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>⚡ Reaction Test</h3>
+                <p>How fast are your reflexes? Click as soon as you see the color change!</p>
+                <button class="play-btn" onclick="startReactionGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🎲 Dice Roller</h3>
+                <p>Roll virtual dice and see what fate has in store! Perfect for decisions.</p>
+                <button class="play-btn" onclick="rollDice()">Roll Dice</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🃏 Card Flip</h3>
+                <p>Classic card matching game. Find all the pairs to win!</p>
+                <button class="play-btn" onclick="startCardGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🎪 Spin Wheel</h3>
+                <p>Spin the wheel of fortune and see where it lands!</p>
+                <button class="play-btn" onclick="spinWheel()">Spin Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🎨 Color Match</h3>
+                <p>Match the colors as fast as you can in this vibrant puzzle game!</p>
+                <button class="play-btn" onclick="startColorGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🚀 Space Shooter</h3>
+                <p>Defend Earth from alien invaders in this retro-style shooter!</p>
+                <button class="play-btn" onclick="startSpaceGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🏃 Endless Runner</h3>
+                <p>Run as far as you can while avoiding obstacles!</p>
+                <button class="play-btn" onclick="startRunnerGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🧮 Math Quiz</h3>
+                <p>Test your math skills with rapid-fire calculations!</p>
+                <button class="play-btn" onclick="startMathGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🎵 Music Memory</h3>
+                <p>Listen to the melody and repeat it back perfectly!</p>
+                <button class="play-btn" onclick="startMusicGame()">Play Now</button>
+            </div>
+            
+            <div class="game-card">
+                <h3>🔤 Word Scramble</h3>
+                <p>Unscramble the letters to form the correct word!</p>
+                <button class="play-btn" onclick="startWordGame()">Play Now</button>
+            </div>
+        </div>
+        
+        <div class="mini-game">
+            <div class="number-game">
+                <h3>🎯 Quick Number Game</h3>
+                <p>I'm thinking of a number between 1 and 10. Can you guess it?</p>
+                <div class="number-display" id="numberDisplay">?</div>
+                <div class="game-controls">
+                    <button class="game-btn" onclick="guessNumber(1)">1</button>
+                    <button class="game-btn" onclick="guessNumber(2)">2</button>
+                    <button class="game-btn" onclick="guessNumber(3)">3</button>
+                    <button class="game-btn" onclick="guessNumber(4)">4</button>
+                    <button class="game-btn" onclick="guessNumber(5)">5</button>
+                    <button class="game-btn" onclick="guessNumber(6)">6</button>
+                    <button class="game-btn" onclick="guessNumber(7)">7</button>
+                    <button class="game-btn" onclick="guessNumber(8)">8</button>
+                    <button class="game-btn" onclick="guessNumber(9)">9</button>
+                    <button class="game-btn" onclick="guessNumber(10)">10</button>
+                </div>
+                <div class="score" id="gameScore">Score: 0 | Attempts: 0</div>
+                <button class="play-btn" onclick="newGame()" style="margin-top: 20px;">New Game</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="easter-egg">
+        <p>🔐 Secret Access Granted</p>
+    </div>
+    
+    <script>
+        let secretNumber = Math.floor(Math.random() * 10) + 1;
+        let score = 0;
+        let attempts = 0;
+        
+        function guessNumber(guess) {
+            attempts++;
+            const display = document.getElementById('numberDisplay');
+            const scoreDisplay = document.getElementById('gameScore');
+            
+            if (guess === secretNumber) {
+                display.textContent = guess;
+                display.style.color = '#4ECDC4';
+                score += 10;
+                setTimeout(() => {
+                    alert('🎉 Correct! You guessed it!');
+                    newGame();
+                }, 100);
+            } else {
+                display.textContent = guess;
+                display.style.color = '#FF6B6B';
+                setTimeout(() => {
+                    display.textContent = '?';
+                    display.style.color = '#FFD700';
+                }, 1000);
+                
+                if (guess < secretNumber) {
+                    alert('📈 Too low! Try higher!');
+                } else {
+                    alert('📉 Too high! Try lower!');
+                }
+            }
+            
+            scoreDisplay.textContent = `Score: ${score} | Attempts: ${attempts}`;
+        }
+        
+        function newGame() {
+            secretNumber = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('numberDisplay').textContent = '?';
+            document.getElementById('numberDisplay').style.color = '#FFD700';
+        }
+        
+        function startNumberGame() {
+            alert('🎯 Advanced Number Game coming soon! For now, try the quick game below!');
+        }
+        
+        function startMemoryGame() {
+            alert('🧩 Memory Challenge coming soon! Stay tuned for brain-training fun!');
+        }
+        
+        function startReactionGame() {
+            alert('⚡ Reaction Test coming soon! Get ready to test your reflexes!');
+        }
+        
+        function rollDice() {
+            const result = Math.floor(Math.random() * 6) + 1;
+            alert(`🎲 You rolled a ${result}!`);
+        }
+
+        function startCardGame() {
+            alert('🃏 Card Flip Game coming soon! Get ready for memory challenges!');
+        }
+
+        function spinWheel() {
+            const prizes = ['🎁 Prize!', '🍀 Lucky!', '⭐ Star!', '💎 Gem!', '🏆 Trophy!', '🎊 Bonus!'];
+            const result = prizes[Math.floor(Math.random() * prizes.length)];
+            alert(`🎪 The wheel landed on: ${result}`);
+        }
+
+        function startColorGame() {
+            alert('🎨 Color Match coming soon! Prepare for colorful fun!');
+        }
+
+        function startSpaceGame() {
+            alert('🚀 Space Shooter coming soon! Get ready to save the galaxy!');
+        }
+
+        function startRunnerGame() {
+            alert('🏃 Endless Runner coming soon! Start stretching those fingers!');
+        }
+
+        function startMathGame() {
+            const num1 = Math.floor(Math.random() * 20) + 1;
+            const num2 = Math.floor(Math.random() * 20) + 1;
+            const answer = prompt(`🧮 Quick Math: What is ${num1} + ${num2}?`);
+            if (parseInt(answer) === num1 + num2) {
+                alert('🎉 Correct! You\'re a math wizard!');
+            } else {
+                alert(`❌ Wrong! The answer was ${num1 + num2}. Keep practicing!`);
+            }
+        }
+
+        function startMusicGame() {
+            alert('🎵 Music Memory coming soon! Get ready to test your musical ear!');
+        }
+
+        function startWordGame() {
+            const words = ['JAVASCRIPT', 'GAMING', 'PUZZLE', 'CHALLENGE', 'VICTORY'];
+            const word = words[Math.floor(Math.random() * words.length)];
+            const scrambled = word.split('').sort(() => Math.random() - 0.5).join('');
+            const answer = prompt(`🔤 Unscramble this word: ${scrambled}`);
+            if (answer && answer.toUpperCase() === word) {
+                alert('🎉 Correct! You unscrambled it perfectly!');
+            } else {
+                alert(`❌ The word was: ${word}. Try again next time!`);
+            }
+        }
+
+        // Dynamic shooting star creation
+        function createDynamicShootingStar() {
+            const colors = ['#FF6B9D', '#00D2D3', '#F8B500', '#6C5CE7', '#00FF87', '#FF3838'];
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 8 + 4;
+            
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.background = color;
+            star.style.color = color;
+            star.style.boxShadow = `0 0 20px ${color}, 0 0 40px ${color}`;
+            star.style.top = Math.random() * 50 + '%';
+            star.style.left = '-100px';
+            star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            
+            document.querySelector('.shooting-stars').appendChild(star);
+            
+            setTimeout(() => {
+                star.remove();
+            }, 5000);
+        }
+
+        // Create dynamic floating shapes
+        function createFloatingShape() {
+            const shapes = ['triangle', 'circle', 'square'];
+            const colors = ['#FF6B9D', '#00D2D3', '#F8B500', '#6C5CE7', '#00FF87'];
+            
+            const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            const shape = document.createElement('div');
+            shape.className = `floating-shape shape-${shapeType}`;
+            shape.style.left = Math.random() * 100 + '%';
+            shape.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            
+            if (shapeType === 'triangle') {
+                shape.style.borderBottomColor = color;
+                shape.style.filter = `drop-shadow(0 0 10px ${color})`;
+            } else if (shapeType === 'circle') {
+                shape.style.background = color;
+                shape.style.boxShadow = `0 0 15px ${color}`;
+            } else if (shapeType === 'square') {
+                shape.style.background = color;
+                shape.style.boxShadow = `0 0 15px ${color}`;
+            }
+            
+            document.querySelector('.floating-shapes').appendChild(shape);
+            
+            setTimeout(() => {
+                shape.remove();
+            }, 20000);
+        }
+
+        // Create shooting stars and shapes periodically
+        setInterval(createDynamicShootingStar, 1500);
+        setInterval(createFloatingShape, 3000);
+        
+        // Welcome message
+        setTimeout(() => {
+            console.log('🎮 Welcome to GameHub! You found the secret gaming portal!');
+            console.log('🔐 This site was disguised as a language learning platform.');
+            console.log('⌨️ Use Ctrl+Alt+U from the main site to return here anytime!');
+            console.log('🎨 Enjoy the Tyler The Creator inspired visuals!');
+        }, 1000);
+    </script>
+</body>
+</html>
