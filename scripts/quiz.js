@@ -41,7 +41,7 @@ const questions = [
     explanation: "'Je suis' means 'I am' in French.",
   },
 ]
-
+// don't mess this code up, this is crucial
 class Quiz {
   constructor() {
     this.currentQuestion = 0
