@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Quiz - LinguaLearn</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-icon">🌍</span>
+                    <span class="brand-text">LinguaLearn</span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="quiz.html" class="nav-link">
+                    <span class="nav-icon">🧠</span>
+                    Quiz
+                </a>
+                <div class="dropdown">
+                    <button class="nav-link dropdown-btn">
+                        <span class="nav-icon">📚</span>
+                        Dictionary
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="spanish-dictionary.html">Spanish Dictionary</a>
+                        <a href="french-dictionary.html">French Dictionary</a>
+                        <a href="german-dictionary.html">German Dictionary</a>
+                    </div>
+                </div>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="mobile-menu-btn">
+                <span class="hamburger"></span>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="quiz.html" class="mobile-link">Quiz</a>
+            <a href="spanish-dictionary.html" class="mobile-link">Spanish Dictionary</a>
+            <a href="french-dictionary.html" class="mobile-link">French Dictionary</a>
+            <a href="german-dictionary.html" class="mobile-link">German Dictionary</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="quiz-container">
+            <!-- Quiz Header -->
+            <div class="quiz-header">
+                <h1 class="quiz-title">Language Quiz</h1>
+                <span class="quiz-counter">
+                    Question <span id="current-question">1</span> of <span id="total-questions">5</span>
+                </span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <!-- Quiz Content -->
+            <div id="quiz-content">
+                <!-- Question will be loaded here -->
+            </div>
+
+            <!-- Quiz Results (hidden initially) -->
+            <div id="quiz-results" class="hidden">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2 class="card-title" style="font-size: 2rem;">Quiz Completed!</h2>
+                        <p class="card-description">Here are your results</p>
+                    </div>
+                    <div class="card-content text-center">
+                        <div id="final-score" style="font-size: 4rem; font-weight: 700; color: #2563eb; margin-bottom: 1rem;">
+                            0/5
+                        </div>
+                        <div id="score-percentage" style="font-size: 1.25rem; margin-bottom: 1.5rem;">
+                            You scored 0%
+                        </div>
+                        <div id="score-message" style="margin-bottom: 1.5rem; font-weight: 600;">
+                            <!-- Score message will be inserted here -->
+                        </div>
+                        <button id="restart-quiz" class="btn btn-primary btn-lg">
+                            🔄 Take Quiz Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/quiz.js"></script>
+</body>
+</html>
