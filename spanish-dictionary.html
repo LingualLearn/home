@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Dictionary - LinguaLearn</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-icon">🌍</span>
+                    <span class="brand-text">LinguaLearn</span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="quiz.html" class="nav-link">
+                    <span class="nav-icon">🧠</span>
+                    Quiz
+                </a>
+                <div class="dropdown">
+                    <button class="nav-link dropdown-btn">
+                        <span class="nav-icon">📚</span>
+                        Dictionary
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="spanish-dictionary.html">Spanish Dictionary</a>
+                        <a href="french-dictionary.html">French Dictionary</a>
+                        <a href="german-dictionary.html">German Dictionary</a>
+                    </div>
+                </div>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="mobile-menu-btn">
+                <span class="hamburger"></span>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="quiz.html" class="mobile-link">Quiz</a>
+            <a href="spanish-dictionary.html" class="mobile-link">Spanish Dictionary</a>
+            <a href="french-dictionary.html" class="mobile-link">French Dictionary</a>
+            <a href="german-dictionary.html" class="mobile-link">German Dictionary</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="dictionary-container">
+            <!-- Dictionary Header -->
+            <div class="dictionary-header">
+                <h1 class="dictionary-title">
+                    <span class="dictionary-flag">🇪🇸</span>
+                    Spanish Dictionary
+                </h1>
+                <p class="dictionary-description">Discover Spanish words and their English translations</p>
+            </div>
+
+            <!-- Search -->
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    class="form-input search-input" 
+                    placeholder="Search Spanish or English words..."
+                >
+            </div>
+
+            <!-- Dictionary Entries -->
+            <div id="dictionary-entries" class="dictionary-grid">
+                <!-- Entries will be loaded here -->
+            </div>
+
+            <!-- No Results -->
+            <div id="no-results" class="no-results hidden">
+                <p>No words found matching your search.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/spanish-dictionary.js"></script>
+</body>
+</html>
