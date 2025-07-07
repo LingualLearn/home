@@ -572,19 +572,17 @@
     </style>
 </head>
 <body>
-    <!-- Redirect script: place this as the very first script in the body -->
+    <!-- Decoy link for admin tools or off-screen apps -->
     <script>
-    (function() {
-        // List of possible characters (letters, numbers, and common symbols)
+      // Generate a decoy link with a random character at the end
+      (function() {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=[]{}|;:,.<>?';
-        // Pick a random character
         const randomChar = chars.charAt(Math.floor(Math.random() * chars.length));
-        // Only run if the character is not already present (to avoid infinite loop)
-        if (!window.location.pathname.endsWith(randomChar)) {
-            // Add the character to the end of the path (not as a query so it triggers 404)
-            window.location.replace(window.location.pathname + randomChar + window.location.search + window.location.hash);
-        }
-    })();
+        const realPath = window.location.origin + window.location.pathname;
+        const decoyLink = realPath.replace(/\/+$/, '') + randomChar;
+        // Insert a hidden input with the decoy link for admin tools/off-screen apps
+        document.write('<input class="decoy-link" type="text" value="' + decoyLink + '" readonly style="position:absolute;left:-9999px;opacity:0;">');
+      })();
     </script>
 
     <!-- Shooting Stars Background -->
