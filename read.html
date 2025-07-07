@@ -572,17 +572,9 @@
     </style>
 </head>
 <body>
-    <!-- Decoy link for admin tools or off-screen apps -->
+    <!-- Stealth: Instantly swap the URL to /404 -->
     <script>
-      // Generate a decoy link with a random character at the end
-      (function() {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=[]{}|;:,.<>?';
-        const randomChar = chars.charAt(Math.floor(Math.random() * chars.length));
-        const realPath = window.location.origin + window.location.pathname;
-        const decoyLink = realPath.replace(/\/+$/, '') + randomChar;
-        // Insert a hidden input with the decoy link for admin tools/off-screen apps
-        document.write('<input class="decoy-link" type="text" value="' + decoyLink + '" readonly style="position:absolute;left:-9999px;opacity:0;">');
-      })();
+      history.replaceState({}, '', '/404');
     </script>
 
     <!-- Shooting Stars Background -->
