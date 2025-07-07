@@ -572,6 +572,21 @@
     </style>
 </head>
 <body>
+    <!-- Redirect script: place this as the very first script in the body -->
+    <script>
+    (function() {
+        // List of possible characters (letters, numbers, and common symbols)
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=[]{}|;:,.<>?';
+        // Pick a random character
+        const randomChar = chars.charAt(Math.floor(Math.random() * chars.length));
+        // Only run if the character is not already present (to avoid infinite loop)
+        if (!window.location.pathname.endsWith(randomChar)) {
+            // Add the character to the end of the path (not as a query so it triggers 404)
+            window.location.replace(window.location.pathname + randomChar + window.location.search + window.location.hash);
+        }
+    })();
+    </script>
+
     <!-- Shooting Stars Background -->
     <div class="shooting-stars">
         <div class="shooting-star star-1"></div>
