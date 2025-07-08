@@ -136,13 +136,13 @@
         }
         .game-img {
             display: none;
-            width: 100%;
-            max-width: 112px;
-            max-height: 112px;
+            width: 112px;
+            height: 112px;
             margin: 0 auto 10px auto;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.14);
             object-fit: cover;
+            object-position: center;
             background: #fff;
         }
         .show-pictures .game-img { display: block; }
@@ -171,6 +171,22 @@
             transform: scale(1.05);
             box-shadow: 0 8px 25px rgba(255,107,157,0.4);
             animation-duration: 1s;
+        }
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3);
+            background: linear-gradient(45deg, #FF6B9D, #00D2D3, #F8B500, #6C5CE7, #00D2D3);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            animation: textGradient 3s ease infinite;
+        }
+        @keyframes textGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         @media (max-width: 1400px) {
             .games-grid { grid-template-columns: repeat(4, 1fr); }
@@ -258,26 +274,122 @@
             .header h1 { font-size: 2.5rem; }
             .game-controls { flex-direction: column; align-items: center; }
         }
+        /* --- Falling stars and floating shapes --- */
+        .shooting-stars, .floating-shapes, .pulsing-orbs {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .shooting-star {
+            position: absolute;
+            border-radius: 50%;
+            animation: shoot linear infinite;
+        }
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, currentColor);
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+        .shooting-star.star-1 { width: 8px; height: 8px; background: #FF6B9D; color: #FF6B9D; box-shadow: 0 0 20px #FF6B9D, 0 0 40px #FF6B9D; animation-duration: 3s; animation-delay: 0s;}
+        .shooting-star.star-2 { width: 6px; height: 6px; background: #00D2D3; color: #00D2D3; box-shadow: 0 0 20px #00D2D3, 0 0 40px #00D2D3; animation-duration: 2.5s; animation-delay: 1s;}
+        .shooting-star.star-3 { width: 10px; height: 10px; background: #F8B500; color: #F8B500; box-shadow: 0 0 20px #F8B500, 0 0 40px #F8B500; animation-duration: 4s; animation-delay: 2s;}
+        .shooting-star.star-4 { width: 7px; height: 7px; background: #6C5CE7; color: #6C5CE7; box-shadow: 0 0 20px #6C5CE7, 0 0 40px #6C5CE7; animation-duration: 3.5s; animation-delay: 0.5s;}
+        .shooting-star.star-5 { width: 9px; height: 9px; background: #00FF87; color: #00FF87; box-shadow: 0 0 20px #00FF87, 0 0 40px #00FF87; animation-duration: 2.8s; animation-delay: 1.5s;}
+        .shooting-star.star-6 { width: 5px; height: 5px; background: #FF3838; color: #FF3838; box-shadow: 0 0 20px #FF3838, 0 0 40px #FF3838; animation-duration: 3.2s; animation-delay: 2.5s;}
+        @keyframes shoot {
+            0% { transform: translateX(-100px) translateY(-100px) rotate(45deg); opacity: 1;}
+            70% { opacity: 1;}
+            100% { transform: translateX(calc(100vw + 100px)) translateY(calc(100vh + 100px)) rotate(45deg); opacity: 0;}
+        }
+        .floating-shape { position: absolute; animation: float linear infinite;}
+        .shape-triangle {
+            width: 0; height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid #FF6B9D;
+            filter: drop-shadow(0 0 10px #FF6B9D);
+            animation-duration: 15s; animation-delay: 0s;
+        }
+        .shape-circle {
+            width: 20px; height: 20px; border-radius: 50%;
+            background: #00D2D3;
+            box-shadow: 0 0 15px #00D2D3;
+            animation-duration: 12s; animation-delay: 3s;
+        }
+        .shape-square {
+            width: 18px; height: 18px; background: #F8B500;
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px #F8B500;
+            animation-duration: 18s; animation-delay: 6s;
+        }
+        .shape-hexagon {
+            width: 20px; height: 17.32px; background: #6C5CE7;
+            position: relative;
+            box-shadow: 0 0 15px #6C5CE7;
+            animation-duration: 14s; animation-delay: 9s;
+        }
+        .shape-hexagon:before, .shape-hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+        .shape-hexagon:before {
+            bottom: 100%;
+            border-bottom: 5.77px solid #6C5CE7;
+        }
+        .shape-hexagon:after {
+            top: 100%;
+            border-top: 5.77px solid #6C5CE7;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0;}
+            10% { opacity: 1;}
+            90% { opacity: 1;}
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0;}
+        }
+        .pulsing-orb {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 60px; height: 60px;
+            background: radial-gradient(circle, rgba(255,107,157,0.3) 0%, transparent 70%);
+            top: 20%; left: 10%; animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, rgba(0,210,211,0.3) 0%, transparent 70%);
+            top: 60%; right: 15%; animation-delay: 1s;
+        }
+        .orb-3 {
+            width: 50px; height: 50px;
+            background: radial-gradient(circle, rgba(248,181,0,0.3) 0%, transparent 70%);
+            bottom: 30%; left: 20%; animation-delay: 2s;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3;}
+            50% { transform: scale(1.5); opacity: 0.1;}
+        }
     </style>
 </head>
 <body>
     <script>
       history.replaceState({}, '', '/404');
     </script>
-
     <button class="show-pictures-btn" id="togglePicturesBtn" onclick="togglePictures()">Show Pictures</button>
-
     <div class="search-bar-container">
-        <input
-            type="text"
-            class="search-bar"
-            id="gameSearch"
-            placeholder="🔍 Search games..."
-            oninput="filterGames()"
-            autocomplete="off"
-        >
+        <input type="text" class="search-bar" id="gameSearch" placeholder="🔍 Search games..." oninput="filterGames()" autocomplete="off">
     </div>
-
     <!-- Shooting Stars Background -->
     <div class="shooting-stars">
         <div class="shooting-star star-1"></div>
