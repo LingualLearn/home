@@ -269,6 +269,12 @@
             border: 2px solid rgba(255,255,255,0.3);
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        .easter-egg.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
         @media (max-width: 768px) {
             .header h1 { font-size: 2.5rem; }
@@ -645,6 +651,11 @@
             console.log('⌨️ Use Ctrl+Alt+U from the main site to return here anytime!');
             console.log('🎨 Enjoy the Tyler The Creator inspired visuals!');
         }, 1000);
+
+        // Fade out the "Secret Access Granted" box after 3 seconds
+        setTimeout(() => {
+            document.querySelector('.easter-egg').classList.add('fade-out');
+        }, 3000);
     </script>
 </body>
 </html>
