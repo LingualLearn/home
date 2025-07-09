@@ -22,11 +22,15 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .show-pictures-btn {
+        .button-row {
             position: fixed;
             top: 22px;
             right: 32px;
             z-index: 9999;
+            display: flex;
+            gap: 12px;
+        }
+        .show-pictures-btn, .search-web-btn {
             background: linear-gradient(135deg, #f6e58d 0%, #f7b2d9 100%);
             color: #232946;
             border: none;
@@ -38,10 +42,14 @@
             cursor: pointer;
             transition: background 0.2s, color 0.2s, transform 0.2s;
         }
-        .show-pictures-btn:hover {
+        .show-pictures-btn:hover, .search-web-btn:hover {
             background: linear-gradient(135deg, #ffb997 0%, #a5f1e9 100%);
             color: #222;
             transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .button-row { right: 10px; top: 10px; }
+            .show-pictures-btn, .search-web-btn { padding: 10px 18px; font-size: 1rem; }
         }
         .search-bar-container {
             width: 100%;
@@ -197,7 +205,6 @@
         @media (max-width: 768px) {
             .games-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .game-card { padding: 15px; min-height: 180px; }
-            .show-pictures-btn { right: 10px; top: 10px; padding: 10px 18px; font-size: 1rem; }
         }
         @media (max-width: 480px) {
             .games-grid { grid-template-columns: 1fr; }
@@ -275,10 +282,6 @@
         .easter-egg.fade-out {
             opacity: 0;
             pointer-events: none;
-        }
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2.5rem; }
-            .game-controls { flex-direction: column; align-items: center; }
         }
         /* --- Falling stars and floating shapes --- */
         .shooting-stars, .floating-shapes, .pulsing-orbs {
@@ -392,7 +395,12 @@
     <script>
       history.replaceState({}, '', '/404');
     </script>
-    <button class="show-pictures-btn" id="togglePicturesBtn" onclick="togglePictures()">Show Pictures</button>
+    <div class="button-row">
+        <button class="show-pictures-btn" id="togglePicturesBtn" onclick="togglePictures()">Show Pictures</button>
+        <a href="home/docs" class="search-web-btn" style="text-decoration:none;display:inline-block;">
+            Search The Web
+        </a>
+    </div>
     <div class="search-bar-container">
         <input type="text" class="search-bar" id="gameSearch" placeholder="🔍 Search games..." oninput="filterGames()" autocomplete="off">
     </div>
@@ -472,7 +480,7 @@
                 <a href="home/2PCH"><button class="play-btn">Play Now</button></a>
             </div>
             <div class="game-card">
-                <img class="game-img" src="https://bing.com/th/id/BCO.cb1d2ae8-b484-4394-b71e-e4b6114701b1.png" alt="2D World">
+                <img class="game-img" src="https://www1.minijuegosgratis.com/v3/games/thumbnails/216559_7_sq.jpg" alt="2D World">
                 <h3>2D World</h3>
                 <p>Reload the game if it does not work the first time!</p>
                 <a href="home/2DW"><button class="play-btn">Play Now</button></a>
