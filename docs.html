@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Search The Web</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         html, body {
             height: 100%;
@@ -25,6 +25,37 @@
             50% {background-position: 100% 50%;}
             100% {background-position: 0% 50%;}
         }
+        /* Back button fixed top-left */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 14px 36px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 32px;
+            background: linear-gradient(90deg, #00d2d3, #f8b500, #ff6b9d, #6c5ce7, #f7b2d9);
+            background-size: 200% 200%;
+            color: #232946;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.17);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background-position 1s;
+            outline: none;
+            text-shadow: 1px 1px 2px #fff8, 0 2px 8px #0003;
+            animation: buttonGradient 4s ease-in-out infinite;
+            z-index: 10000;
+        }
+        .back-btn:hover {
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 16px 48px rgba(255,107,157,0.3);
+            background-position: 100% 100%;
+        }
+        @keyframes buttonGradient {
+            0%,100% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+        }
+        /* Center container for search buttons */
         .center-buttons {
             position: absolute;
             top: 50%; left: 50%;
@@ -55,10 +86,6 @@
             transform: scale(1.07) rotate(-2deg);
             box-shadow: 0 16px 48px rgba(255,107,157,0.3);
             background-position: 100% 100%;
-        }
-        @keyframes buttonGradient {
-            0%,100% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
         }
         /* Animated fun shapes */
         .shape {
@@ -176,6 +203,8 @@
                 fill="#FFD700" stroke="#fff8" stroke-width="2"/>
         </svg>
     </div>
+    <!-- Back button top-left -->
+    <button class="back-btn" onclick="window.location.href='home/read'">← Back</button>
     <!-- Centered search engine buttons -->
     <div class="center-buttons">
         <button class="search-btn" onclick="window.open('https://www.google.com','_blank')">Google</button>
