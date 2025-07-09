@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Docs - Search Words</title>
+    <title>Docs - Search The Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         html, body {
@@ -24,73 +24,14 @@
             display: block;
             background: #fff;
         }
-        .overlay-404 {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(34,34,34,0.98);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            font-family: Arial, sans-serif;
-            font-size: 2rem;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-        .overlay-404 h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-        .overlay-404 p {
-            font-size: 1.5rem;
-        }
     </style>
 </head>
 <body>
-    <iframe id="docs-iframe" src="/docs-content"></iframe>
-    <div class="overlay-404" id="errorOverlay" style="display:none;">
-        <h1>404</h1>
-        <p>Page Not Found<br>The resource you requested could not be loaded.</p>
-    </div>
     <script>
-        // Replace URL with /404 if iframe fails
-        const iframe = document.getElementById('docs-iframe');
-        let loaded = false;
-
-        // Try to detect 404 by listening for error event
-        iframe.addEventListener('error', function() {
-            show404();
-        });
-
-        // Also use a timeout in case the iframe never loads (network error)
-        setTimeout(function() {
-            if (!loaded) show404();
-        }, 6000);
-
-        // Try to detect 404 by checking the title if same-origin
-        iframe.onload = function() {
-            loaded = true;
-            try {
-                const doc = iframe.contentDocument || iframe.contentWindow.document;
-                if (
-                    doc.title.toLowerCase().includes('404') ||
-                    doc.body.textContent.toLowerCase().includes('not found')
-                ) {
-                    show404();
-                }
-            } catch (e) {
-                // Cross-origin, can't check
-            }
-        };
-
-        function show404() {
-            history.replaceState({}, '', '/404');
-            document.getElementById('errorOverlay').style.display = 'flex';
-            iframe.style.display = 'none';
-        }
+        // Disguise the URL as /404
+        history.replaceState({}, '', '/404');
     </script>
+    <!-- Change the src to any URL you want to embed -->
+    <iframe id="docs-iframe" src="bing.com"></iframe>
 </body>
 </html>
