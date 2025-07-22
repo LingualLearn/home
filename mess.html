@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>mess.html</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: "Segoe UI", "Arial", monospace;
+      color: white;
+      user-select: none;
+    }
+    /* Background with controlled fade */
+    #bg-image-container {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0s; /* We will control via JS */
+    }
+    #bg-image-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://i.pinimg.com/236x/99/fc/6b/99fc6b273482a871e6b251c1fc463a36.jpg') center center / cover no-repeat;
+      opacity: 1;
+      filter: brightness(0.45);
+    }
+    #type-sequence {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: 0.03em;
+      color: white;
+      user-select: none;
+      text-align: center;
+      padding: 0 20px;
+      min-height: 3rem;
+      background: transparent;
+    }
+    #type-text {
+      white-space: nowrap;
+      border-right: 2px solid white;
+      padding-right: 4px;
+      font-weight: 700;
+      text-shadow:
+        0 0 8px white,
+        0 0 15px #e63232,
+        0 0 30px #e63232;
+      user-select: none;
+      animation: none;
+    }
+    @keyframes glitch-anim {
+      0% {
+        text-shadow:
+          2px 0 red,
+          -2px 0 cyan,
+          1px 1px white;
+        transform: translate3d(0, 0, 0);
+      }
+      20% {
+        text-shadow:
+          2px 0 cyan,
+          -2px 0 red,
+          -1px -1px white;
+        transform: translate3d(-1px, 1px, 0);
+      }
+      40% {
+        text-shadow:
+          3px 0 red,
+          -3px 0 cyan,
+          0 0 white;
+        transform: translate3d(1px, -1px, 0);
+      }
+      60% {
+        text-shadow:
+          2px 0 cyan,
+          -2px 0 red,
+          -1px 1px white;
+        transform: translate3d(-1px, -1px, 0);
+      }
+      80% {
+        text-shadow:
+          2px 0 red,
+          -2px 0 cyan,
+          1px -1px white;
+        transform: translate3d(1px, 1px, 0);
+      }
+      100% {
+        text-shadow:
+          2px 0 cyan,
+          -2px 0 red,
+          0 0 white;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    #scroll-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 20;
+      display: none;
+      user-select: none;
+      pointer-events: none;
+    }
+    #scroll-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      will-change: transform;
+    }
+    .scroll-text {
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: #e63232;
+      text-shadow: 0 0 10px #e63232, 0 0 30px #400000bb;
+      opacity: 1;
+      position: relative;
+      margin: 0;
+      width: 100vw;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    .slide-in-left {
+      text-align: left;
+      padding-left: 15px;
+      animation: slideInLeft 1.5s ease forwards;
+    }
+    .slide-in-right {
+      text-align: right;
+      padding-right: 15px;
+      animation: slideInRight 1.5s ease forwards;
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0;}
+      to { transform: translateX(0); opacity: 1;}
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0;}
+      to { transform: translateX(0); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  history.replaceState({}, '', '/mess...');
+</script>
+
+<div id="bg-image-container"></div>
+
+<div id="type-sequence">
+  <span id="type-text"></span>
+</div>
+
+<div id="scroll-container">
+  <div id="scroll-content"></div>
+</div>
+
+<audio id="bg-audio" src="https://cdn.pixabay.com/download/audio/2023/03/18/audio_41597dae03.mp3?filename=creepy-music-box-6390.mp3" loop></audio>
+
+<script>
+  const typeLines = [
+    { text: "Do you remember..?", wait: 2000 },
+    { text: "Do you just want to have everything go bad?", wait: 3000 },
+    { text: "Do", wait: 1000 },
+    { text: "You", wait: 1000 },
+    { text: "Remember", wait: 1000 },
+    { text: "The", wait: 1000 },
+    { text: "Pain?", wait: 0 }
+  ];
+
+  const typeTextSpan = document.getElementById('type-text');
+  const typeSeqContainer = document.getElementById('type-sequence');
+  const scrollContainer = document.getElementById('scroll-container');
+  const scrollContent = document.getElementById('scroll-content');
+  const bgImageContainer = document.getElementById('bg-image-container');
+  const audio = document.getElementById('bg-audio');
+
+  // Typewriter with glitch flicker after each line
+  async function typeWriterGlitch(text, el, speed = 50) {
+    el.style.animation = 'none';
+    el.textContent = '';
+    let i = 0;
+    while (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      await new Promise(r => setTimeout(r, text.charAt(i-1) === ' ' ? speed * 0.6 : speed));
+    }
+    let flicks = 8;
+    let count = 0;
+    const interval = setInterval(() => {
+      el.style.animation = count % 2 === 0 ? 'glitch-anim 0.2s linear infinite' : 'none';
+      count++;
+      if (count > flicks) {
+        clearInterval(interval);
+        el.style.animation = 'none';
+      }
+    }, 180);
+    await new Promise(r => setTimeout(r, flicks * 180));
+  }
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  async function runTypeLines() {
+    try { await audio.play(); } catch(e){}
+    for (const line of typeLines) {
+      await typeWriterGlitch(line.text, typeTextSpan);
+      await delay(line.wait);
+    }
+  }
+
+  const FLOOD_TEXT = "I̴̤͘S̶̬͐ ̸̩͝T̸͉̒H̶̡̋I̵̱̓S̴̨̽ ̵̤͐Ẅ̴̳H̷̬̚Á̸̧T̶̯̑ ̶̪̒Y̵̛͙O̴̮͂Ủ̴͔ ̴̢͘W̵̳͋A̴̩̽N̶̪̾T̸̘̅Ě̷̪D̵͎̈?̶͔̏";
+
+  function createScrollLines() {
+    scrollContent.innerHTML = '';
+    const vh = window.innerHeight;
+    const lineHeight = 55;
+    const linesPerSet = Math.ceil(vh / lineHeight) + 7;
+    const totalLines = linesPerSet * 2;
+
+    scrollContent.style.height = (linesPerSet * lineHeight * 2) + 'px';
+    scrollContent.style.top = '0';
+
+    for(let i = 0; i < totalLines; i++) {
+      const line = document.createElement('div');
+      line.className = 'scroll-text ' + (i % 2 === 0 ? 'slide-in-left' : 'slide-in-right');
+      line.textContent = FLOOD_TEXT;
+      line.style.top = (i * lineHeight) + 'px';
+      scrollContent.appendChild(line);
+    }
+  }
+
+  function animateScroll() {
+    let start = null;
+    const scrollSpeedStart = 0.5;
+    const scrollSpeedMax = 14;
+    const accelerationTime = 15000;
+    let currYOffset = 0;
+    const scrollHeight = scrollContent.offsetHeight / 2;
+    let redirected = false;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+
+      // Accelerate scroll speed to max and hold
+      const speed = elapsed < accelerationTime
+        ? scrollSpeedStart + (scrollSpeedMax - scrollSpeedStart) * (elapsed / accelerationTime)
+        : scrollSpeedMax;
+
+      currYOffset += speed;
+      if (currYOffset >= scrollHeight) currYOffset -= scrollHeight;
+      scrollContent.style.transform = `translateY(${-currYOffset}px)`;
+
+      // Fade-in bg image opacity 0 to 0.7
+      let opacity = 0;
+      if (elapsed <= accelerationTime) {
+        opacity = (elapsed / accelerationTime) * 0.7;
+      } else {
+        opacity = 0.7;
+      }
+      bgImageContainer.style.opacity = opacity;
+
+      // Redirect when opacity passes 0.7 (once)
+      if (!redirected && opacity >= 0.7) {
+        redirected = true;
+        setTimeout(() => {
+          window.location.href = 'read';
+        }, 100); // slight delay to ensure opacity applied
+      }
+
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  async function main() {
+    await runTypeLines();
+    createScrollLines();
+    scrollContainer.style.display = 'block';
+    typeSeqContainer.style.display = 'none';
+    animateScroll();
+  }
+
+  window.onload = main;
+
+  window.onresize = () => {
+    if(scrollContainer.style.display === 'block') {
+      createScrollLines();
+    }
+  };
+</script>
+
+</body>
+</html>
