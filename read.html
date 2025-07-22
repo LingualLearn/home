@@ -712,6 +712,25 @@
         setTimeout(() => {
             document.querySelector('.easter-egg').classList.add('fade-out');
         }, 3000);
+
+        // ============================================
+        //  1/1000 Mess Chance - Play Now Button Intercept
+        // ============================================
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const chance = Math.random();
+                if (chance < 0.001) {
+                    window.location.href = 'mess.html';
+                } else {
+                    const anchor = btn.closest('a');
+                    if (anchor && anchor.href) {
+                        window.location.href = anchor.href;
+                    }
+                }
+            });
+        });
+        // ============================================
     </script>
 </body>
 </html>
