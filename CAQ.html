@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LinguaLearn - Create A Quiz</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Blue_globe_icon.svg/84px-Blue_globe_icon.svg.png" type="image/x-icon">
+  <meta name="description" content="Create your own custom quiz for language learning.">
+  <link rel="stylesheet" href="styles/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ✅ Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-icon">🌍</span>
+          <span class="brand-text">LinguaLearn</span>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="quiz.html" class="nav-link"><span class="nav-icon">🧠</span> Quiz</a>
+        <div class="dropdown">
+          <button class="nav-link dropdown-btn"><span class="nav-icon">📚</span> Dictionary</button>
+          <div class="dropdown-content">
+            <a href="spanish-dictionary.html">Spanish Dictionary</a>
+            <a href="french-dictionary.html">French Dictionary</a>
+            <a href="german-dictionary.html">German Dictionary</a>
+          </div>
+        </div>
+        <a href="CAQ.html" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="mobile-menu-btn">
+        <span class="hamburger"></span>
+      </div>
+    </div>
+    <div class="mobile-menu">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="quiz.html" class="mobile-link">Quiz</a>
+      <a href="spanish-dictionary.html" class="mobile-link">Spanish Dictionary</a>
+      <a href="french-dictionary.html" class="mobile-link">French Dictionary</a>
+      <a href="german-dictionary.html" class="mobile-link">German Dictionary</a>
+      <a href="CAQ.html" class="mobile-link">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- ✅ Main Content -->
+  <main class="main-content">
+    <!-- Page Intro -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">✍️ Create A Quiz</h1>
+        <p class="hero-description">
+          Use the builder below to create your own quiz. Add as many questions and options as you like.
+          When finished, choose whether to make your quiz public or private.
+          If private, we’ll generate a join code you can share with students.
+        </p>
+      </div>
+    </section>
+
+    <!-- ✅ Quiz Builder -->
+    <section class="quiz-container">
+      <form id="quizForm" class="card">
+        <div class="card-header">
+          <h2 class="card-title">Add a Question</h2>
+        </div>
+        <div class="card-content">
+          <!-- Question Text -->
+          <div class="form-group">
+            <label for="question" class="form-label">Question</label>
+            <input type="text" id="question" class="form-input" placeholder="Enter your question" required>
+          </div>
+
+          <!-- Options Container -->
+          <div id="optionsContainer">
+            <div class="form-group">
+              <label class="form-label">Option 1</label>
+              <input type="text" class="form-input" name="option" placeholder="Enter option">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Option 2</label>
+              <input type="text" class="form-input" name="option" placeholder="Enter option">
+            </div>
+          </div>
+          <button type="button" id="addOptionBtn" class="btn btn-outline mt-2">➕ Add Another Option</button>
+
+          <!-- Correct Answer -->
+          <div class="form-group mt-4">
+            <label for="correctAnswer" class="form-label">Correct Answer</label>
+            <input type="text" id="correctAnswer" class="form-input" placeholder="Type the correct answer">
+          </div>
+
+          <!-- Save Question -->
+          <div class="quiz-footer">
+            <button type="submit" class="btn btn-primary">Save Question</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- ✅ Quiz Preview -->
+      <div id="quizPreview" class="dictionary-container hidden">
+        <h3 class="section-title">📋 Quiz Preview</h3>
+        <div id="quizPreviewList" class="dictionary-grid"></div>
+
+        <!-- ✅ Public / Private -->
+        <div class="form-group mt-4">
+          <label class="form-label">Quiz Visibility</label>
+          <select id="quizVisibility" class="form-input">
+            <option value="public">🌍 Public (anyone can take it)</option>
+            <option value="private">🔒 Private (share with code)</option>
+          </select>
+        </div>
+
+        <!-- Generated Code -->
+        <div id="generatedCode" class="mt-2 hidden">
+          <p><strong>Your Join Code:</strong> <span id="joinCodeValue"></span></p>
+        </div>
+
+        <!-- Finish Button -->
+        <div class="quiz-footer mt-4">
+          <button id="finishQuizBtn" class="btn btn-success">✅ Finish Quiz</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ Scripts -->
+  <script src="scripts/main.js"></script>
+  <script src="scripts/CAQ.js"></script>
+</body>
+</html>
