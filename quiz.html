@@ -1,108 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Quiz - LinguaLearn</title>
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Blue_globe_icon.svg/84px-Blue_globe_icon.svg.png" type="image/x-icon">
-    <link rel="stylesheet" href="styles/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LinguaLearn - Quiz</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Blue_globe_icon.svg/84px-Blue_globe_icon.svg.png" type="image/x-icon">
+  <meta name="description" content="Take interactive quizzes to master Spanish, French, and German or join custom quizzes with a code.">
+  <link rel="stylesheet" href="styles/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="index.html" class="brand-link">
-                    <span class="brand-icon">🌍</span>
-                    <span class="brand-text">LinguaLearn</span>
-                </a>
-            </div>
-
-            <!-- Desktop Navigation -->
-            <div class="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="quiz.html" class="nav-link">
-                    <span class="nav-icon">🧠</span>
-                    Quiz
-                </a>
-                <div class="dropdown">
-                    <button class="nav-link dropdown-btn">
-                        <span class="nav-icon">📚</span>
-                        Dictionary
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="spanish-dictionary.html">Spanish Dictionary</a>
-                        <a href="french-dictionary.html">French Dictionary</a>
-                        <a href="german-dictionary.html">German Dictionary</a>
-                    </div>
-                </div>
-                <button class="btn btn-primary">Get Started</button>
-            </div>
-
-            <!-- Mobile menu button -->
-            <div class="mobile-menu-btn">
-                <span class="hamburger"></span>
-            </div>
+  <!-- ✅ Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-icon">🌍</span>
+          <span class="brand-text">LinguaLearn</span>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="quiz.html" class="nav-link"><span class="nav-icon">🧠</span> Quiz</a>
+        <div class="dropdown">
+          <button class="nav-link dropdown-btn"><span class="nav-icon">📚</span> Dictionary</button>
+          <div class="dropdown-content">
+            <a href="spanish-dictionary.html">Spanish Dictionary</a>
+            <a href="french-dictionary.html">French Dictionary</a>
+            <a href="german-dictionary.html">German Dictionary</a>
+          </div>
         </div>
+        <a href="CAQ.html" class="btn btn-primary">Get Started</a>
+        <a href="join.html" class="btn btn-outline">Join Quiz</a>
+      </div>
+      <div class="mobile-menu-btn">
+        <span class="hamburger"></span>
+      </div>
+    </div>
+    <div class="mobile-menu">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="quiz.html" class="mobile-link">Quiz</a>
+      <a href="spanish-dictionary.html" class="mobile-link">Spanish Dictionary</a>
+      <a href="french-dictionary.html" class="mobile-link">French Dictionary</a>
+      <a href="german-dictionary.html" class="mobile-link">German Dictionary</a>
+      <a href="CAQ.html" class="mobile-link">Get Started</a>
+      <a href="join.html" class="mobile-link">Join Quiz</a>
+    </div>
+  </nav>
 
-        <!-- Mobile Navigation -->
-        <div class="mobile-menu">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="quiz.html" class="mobile-link">Quiz</a>
-            <a href="spanish-dictionary.html" class="mobile-link">Spanish Dictionary</a>
-            <a href="french-dictionary.html" class="mobile-link">French Dictionary</a>
-            <a href="german-dictionary.html" class="mobile-link">German Dictionary</a>
+  <!-- ✅ Main Content -->
+  <main class="main-content">
+    <section class="quiz-container">
+      <div id="quizArea">
+        <h2 class="quiz-title">Loading Quiz...</h2>
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ Scripts -->
+  <script src="scripts/main.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const quizArea = document.getElementById("quizArea");
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code) {
+      // 🔒 Load custom quiz by join code
+      const savedQuizzes = JSON.parse(localStorage.getItem("customQuizzes") || "{}");
+      const quiz = savedQuizzes[code];
+
+      if (quiz) {
+        loadCustomQuiz(quiz, quizArea);
+      } else {
+        quizArea.innerHTML = `<p style="color:red;">⚠️ No quiz found for code: ${code}</p>`;
+      }
+    } else {
+      // 🌍 Load default quizzes (example content)
+      loadDefaultQuiz(quizArea);
+    }
+  });
+
+  // ✅ Custom Quiz Loader
+  function loadCustomQuiz(quiz, container) {
+    container.innerHTML = `<h2 class="quiz-title">${quiz.title || "Custom Quiz"}</h2>`;
+
+    quiz.questions.forEach((q, idx) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question-card mt-4";
+      qDiv.innerHTML = `
+        <div class="question-header">
+          <p class="question-text">${idx + 1}. ${q.question}</p>
         </div>
-    </nav>
-
-    <main class="main-content">
-        <div class="quiz-container">
-            <!-- Quiz Header -->
-            <div class="quiz-header">
-                <h1 class="quiz-title">Language Quiz</h1>
-                <span class="quiz-counter">
-                    Question <span id="current-question">1</span> of <span id="total-questions">5</span>
-                </span>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
-
-            <!-- Quiz Content -->
-            <div id="quiz-content">
-                <!-- Question will be loaded here -->
-            </div>
-
-            <!-- Quiz Results (hidden initially) -->
-            <div id="quiz-results" class="hidden">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h2 class="card-title" style="font-size: 2rem;">Quiz Completed!</h2>
-                        <p class="card-description">Here are your results</p>
-                    </div>
-                    <div class="card-content text-center">
-                        <div id="final-score" style="font-size: 4rem; font-weight: 700; color: #2563eb; margin-bottom: 1rem;">
-                            0/5
-                        </div>
-                        <div id="score-percentage" style="font-size: 1.25rem; margin-bottom: 1.5rem;">
-                            You scored 0%
-                        </div>
-                        <div id="score-message" style="margin-bottom: 1.5rem; font-weight: 600;">
-                            <!-- Score message will be inserted here -->
-                        </div>
-                        <button id="restart-quiz" class="btn btn-primary btn-lg">
-                            🔄 Take Quiz Again
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="options-container">
+          ${q.options.map(opt => `<button class="option-button">${opt}</button>`).join("")}
         </div>
-    </main>
+      `;
+      container.appendChild(qDiv);
 
-    <script src="scripts/main.js"></script>
-    <script src="scripts/quiz.js"></script>
+      // attach answer checking
+      const buttons = qDiv.querySelectorAll(".option-button");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.disabled = true);
+          if (btn.textContent === q.correctAnswer) {
+            btn.classList.add("correct");
+          } else {
+            btn.classList.add("incorrect");
+          }
+        });
+      });
+    });
+  }
+
+  // ✅ Default Quiz Loader (for Home quizzes)
+  function loadDefaultQuiz(container) {
+    container.innerHTML = `
+      <h2 class="quiz-title">🌍 Language Quiz</h2>
+      <p class="quiz-counter">Example: Spanish Basics</p>
+      <div class="question-card">
+        <div class="question-header">
+          <p class="question-text">What is "Hello" in Spanish?</p>
+        </div>
+        <div class="options-container">
+          <button class="option-button">Hola</button>
+          <button class="option-button">Bonjour</button>
+          <button class="option-button">Hallo</button>
+        </div>
+      </div>
+    `;
+
+    // Attach checking
+    container.querySelectorAll(".option-button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        container.querySelectorAll(".option-button").forEach(b => b.disabled = true);
+        if (btn.textContent === "Hola") {
+          btn.classList.add("correct");
+        } else {
+          btn.classList.add("incorrect");
+        }
+      });
+    });
+  }
+  </script>
 </body>
 </html>
